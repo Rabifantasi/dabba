@@ -9,6 +9,7 @@
     "lint": "next lint",
     "import-data": "node scripts/importSanityData.mjs",
     "test": "jest"
+    
   },
   "dependencies": {
     "@sanity/client": "^6.25.0",
