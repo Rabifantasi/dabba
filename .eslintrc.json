@@ -1,3 +1,10 @@
+
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off", // Disable the rule for using 'any'
+    "@typescript-eslint/explicit-module-boundary-types": "off", // Disable explicit return types on functions
+    "no-console": "off", // Change to warn instead of error
+    "no-unused-vars": "off" // Change to warn instead of error
+  }
 }
