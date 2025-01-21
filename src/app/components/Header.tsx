@@ -13,11 +13,7 @@ interface HeaderData {
   navigationLinks: NavigationLink[];
 }
 
-interface HeaderProps {
-  onSearch: (searchTerm: string) => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ onSearch }) => {
+const Header: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [headerData, setHeaderData] = useState<HeaderData | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false); // State to manage the hamburger menu
@@ -40,7 +36,6 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    onSearch(event.target.value);
   };
 
   const handleSearchSubmit = (event: React.FormEvent) => {
