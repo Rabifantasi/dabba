@@ -73,6 +73,7 @@ const Hero: React.FC = () => {
 
   const [data, setData] = useState<HeroData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -82,6 +83,7 @@ const Hero: React.FC = () => {
         setData(result);
       } catch (error) {
         console.error("Error fetching data from Sanity:", error);
+        setError("Failed to load data.");
       } finally {
         setLoading(false);
       }
@@ -102,8 +104,9 @@ const Hero: React.FC = () => {
     }
   }, [data]);
 
-  if (loading) return <div>Loading...</div>; // Handle loading state
-  if (!data) return <div>No data available</div>; // Handle no data available
+  if (loading) return <div className="text-center">Loading...</div>; // Handle loading state
+  if (error) return <div className="text-center text-red-500">{error}</div>; // Handle error state
+  if (!data) return <div className="text-center">No data available</div>; // Handle no data available
 
   return (
     <div className="flex flex-col md:flex-row md:items-start w-full">
@@ -111,6 +114,7 @@ const Hero: React.FC = () => {
         <Menu />
       </div>
       <div className="flex-1 mt-16">
+        {/* Hero Slider */}
         <section className="bg-yellow-300 relative overflow-hidden rounded-lg shadow-lg">
           {data.sliderImages.length > 0 ? (
             <Image
@@ -120,6 +124,7 @@ const Hero: React.FC = () => {
               width={800}
               height={400}
               className="rounded-lg opacity-100 transition-opacity duration-500"
+              priority // Improved performance
             />
           ) : (
             <div className="text-center">No images available</div>
@@ -202,7 +207,7 @@ const Hero: React.FC = () => {
                     height={100}
                     className="rounded-full mb-4"
                   />
-                  <p className="italic">{testimonial.quote}</p>
+                  <p className="italic text-center">{testimonial.quote}</p>
                   <p className="font-bold">{testimonial.author}</p>
                 </blockquote>
               ))
@@ -214,21 +219,26 @@ const Hero: React.FC = () => {
 
         {/* New Arrivals Section */}
         <section className="py-16">
-          <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">New Arrivals</h2>
+          <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">
+            New Arrivals
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {data.newArrivals.length > 0 ? (
               data.newArrivals.map((arrival, index) => (
-                <div key={index} className="relative bg-white rounded-lg shadow-md overflow-hidden">
+                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <Image
                     src={arrival.image.asset.url}
-                    alt={arrival.title}
-                    width={400}
-                    height={400}
-                    className="object-cover"
+                    alt={`New Arrival ${index + 1}`}
+                    width={300}
+                    height={200}
+                    className="w-full h-64 object-cover"
                   />
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold">{arrival.title}</h3>
-                    <p className="text-xl font-bold">{arrival.price} PKR</p>
+                  <div className="p-4 text-center">
+                    <h3 className="text-lg font-bold text-gray-800 mb-2">{arrival.title}</h3>
+                    <p className="text-gray-600 mb-4">{arrival.price} PKR</p>
+                    <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               ))
@@ -239,35 +249,30 @@ const Hero: React.FC = () => {
         </section>
 
         {/* Event Highlights Section */}
-        <section className="py-16">
-  <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">Event Highlights</h2>
-  <div className="max-w-full px-4">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      {data.eventHighlights.length > 0 ? (
-        data.eventHighlights.map((event, index) => (
-          <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-200 w-full">
-            <Image
-              src={event.image.asset.url}
-              alt={event.title}
-              width={600}
-              height={400}
-              className="object-cover w-full h-64"
-            />
-            <div className="p-6 text-center">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{event.title}</h3>
-              <p className="text-gray-600">{event.date}</p>
-            </div>
+        <section className="py-16 bg-gray-100">
+          <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">
+            Upcoming Events
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {data.eventHighlights.length > 0 ? (
+              data.eventHighlights.map((event, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                  <Image
+                    src={event.image.asset.url}
+                    alt={`Event ${index + 1}`}
+                    width={300}
+                    height={200}
+                    className="w-full h-64 object-cover mb-4"
+                  />
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">{event.title}</h3>
+                  <p className="text-gray-600">{event.date}</p>
+                </div>
+              ))
+            ) : (
+              <div className="text-center">No upcoming events available</div>
+            )}
           </div>
-        ))
-      ) : (
-        <div className="text-center">No event highlights available</div>
-      )}
-    </div>
-  </div>
-</section>
-
-
-
+        </section>
       </div>
     </div>
   );

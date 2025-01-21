@@ -12,10 +12,9 @@ const ContactPage: React.FC = () => {
     e.preventDefault();
 
     // Here you would typically send the data to your backend or API
-    // For now, we'll just log the data and show a success message
     console.log({ name, email, message });
     setSubmitted(true);
-    
+
     // Reset the form after submission
     setName("");
     setEmail("");
@@ -23,18 +22,28 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
+    <div className="flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-16 bg-gray-50 min-h-screen">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-center">
+        Contact Us
+      </h1>
 
       {submitted ? (
-        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md text-center">
-          <h2 className="text-xl font-semibold mb-2">Thank you for your message!</h2>
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs sm:max-w-md text-center">
+          <h2 className="text-lg sm:text-xl font-semibold mb-2">
+            Thank you for your message!
+          </h2>
           <p className="text-gray-700">We will get back to you shortly.</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-xs sm:max-w-md"
+        >
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Name
             </label>
             <input
@@ -43,12 +52,15 @@ const ContactPage: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="border rounded-lg w-full p-2"
+              className="border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Email
             </label>
             <input
@@ -57,12 +69,15 @@ const ContactPage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="border rounded-lg w-full p-2"
+              className="border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">
+            <label
+              htmlFor="message"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Message
             </label>
             <textarea
@@ -71,7 +86,7 @@ const ContactPage: React.FC = () => {
               onChange={(e) => setMessage(e.target.value)}
               required
               rows={4}
-              className="border rounded-lg w-full p-2"
+              className="border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -84,10 +99,12 @@ const ContactPage: React.FC = () => {
         </form>
       )}
 
-      <div className="mt-8 text-center">
-        <h2 className="text-lg font-bold">Other Ways to Contact Us:</h2>
-        <p>Email: support@example.com</p>
-        <p>Phone: +123 456 7890</p>
+      <div className="mt-8 text-center max-w-xs sm:max-w-md">
+        <h2 className="text-lg sm:text-xl font-bold mb-2">
+          Other Ways to Contact Us:
+        </h2>
+        <p className="text-sm sm:text-base">Email: support@example.com</p>
+        <p className="text-sm sm:text-base">Phone: +123 456 7890</p>
       </div>
     </div>
   );

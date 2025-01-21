@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 interface FiltersProps {
   categories: string[];
@@ -13,9 +13,9 @@ const Filters: React.FC<FiltersProps> = ({
   priceRanges = [],
   onFilterChange,
 }) => {
-  const [category, setCategory] = useState('');
-  const [price, setPrice] = useState('');
-  const [popularity, setPopularity] = useState('');
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [popularity, setPopularity] = useState("");
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCategory = e.target.value;
@@ -36,16 +36,16 @@ const Filters: React.FC<FiltersProps> = ({
   };
 
   const resetFilters = () => {
-    setCategory('');
-    setPrice('');
-    setPopularity('');
-    onFilterChange({ category: '', price: '', popularity: '' });
+    setCategory("");
+    setPrice("");
+    setPopularity("");
+    onFilterChange({ category: "", price: "", popularity: "" });
   };
 
   return (
-    <div className="flex gap-x-4 mb-4">
+    <div className="flex flex-wrap gap-4 mb-4 justify-center">
       {/* Category Filter */}
-      <div className="border border-gray-400 text-[0.875rem] rounded-md py-3 bg-lightbgColor flex pl-3 pr-6 items-center gap-x-2">
+      <div className="border border-gray-400 text-[0.875rem] rounded-md py-3 bg-lightbgColor flex pl-3 pr-6 items-center gap-x-2 w-full sm:w-auto">
         <p className="text-[#737373]">Category</p>
         <select onChange={handleCategoryChange} value={category} className="text-sm">
           <option value="">Select Category</option>
@@ -56,7 +56,7 @@ const Filters: React.FC<FiltersProps> = ({
       </div>
 
       {/* Price Range Filter */}
-      <div className="border border-gray-400 text-[0.875rem] rounded-md py-3 bg-lightbgColor flex pl-3 pr-6 items-center gap-x-2">
+      <div className="border border-gray-400 text-[0.875rem] rounded-md py-3 bg-lightbgColor flex pl-3 pr-6 items-center gap-x-2 w-full sm:w-auto">
         <p className="text-[#737373]">Price</p>
         <select onChange={handlePriceChange} value={price} className="text-sm">
           <option value="">Select Price Range</option>
@@ -67,7 +67,7 @@ const Filters: React.FC<FiltersProps> = ({
       </div>
 
       {/* Popularity Filter */}
-      <div className="border border-gray-400 text-[0.875rem] rounded-md py-3 bg-lightbgColor flex pl-3 pr-6 items-center gap-x-2">
+      <div className="border border-gray-400 text-[0.875rem] rounded-md py-3 bg-lightbgColor flex pl-3 pr-6 items-center gap-x-2 w-full sm:w-auto">
         <p className="text-[#737373]">Popularity</p>
         <select onChange={handlePopularityChange} value={popularity} className="text-sm">
           <option value="">Select Popularity</option>
@@ -79,7 +79,7 @@ const Filters: React.FC<FiltersProps> = ({
       {/* Reset Filters Button */}
       <button 
         onClick={resetFilters} 
-        className="mt-2 text-red-500 underline"
+        className="mt-2 text-red-500 underline w-full sm:w-auto"
       >
         Reset Filters
       </button>

@@ -37,40 +37,48 @@ const CartPage: React.FC = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
   if (cartItems.length === 0) {
     return (
-      <div className="p-6 text-center">
-        <h1 className="text-2xl font-bold">Your Cart is Empty</h1>
-        <p className="mt-4 text-gray-500">Browse products and add them to your cart!</p>
+      <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Your Cart is Empty</h1>
+        <p className="mt-4 text-gray-500 text-sm sm:text-base">
+          Browse products and add them to your cart!
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl xl:text-4xl font-bold mb-6 text-center lg:text-left">
+        Your Cart
+      </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Cart Items Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cartItems.map((item, index) => (
-          <div key={index} className="flex items-center justify-between border-b pb-4 mb-4">
+          <div
+            key={index}
+            className="flex flex-col sm:flex-row items-center justify-between border rounded-lg p-4 shadow-sm"
+          >
             <div className="flex items-center">
               <Image
                 src={item.image.asset.url}
                 alt={item.name}
-                className="w-16 h-16 object-cover rounded"
-                width={64}
-                height={64}
+                className="w-20 h-20 sm:w-16 sm:h-16 object-cover rounded"
+                width={80}
+                height={80}
               />
               <div className="ml-4">
-                <h2 className="text-lg font-semibold">{item.name}</h2>
-                <p className="text-green-600">PKR {item.price}</p>
+                <h2 className="text-base sm:text-lg font-semibold">{item.name}</h2>
+                <p className="text-green-600 text-sm sm:text-base">PKR {item.price}</p>
               </div>
             </div>
             <button
-              className="text-red-600 hover:text-red-800"
+              className="mt-4 sm:mt-0 text-red-600 hover:text-red-800 text-sm sm:text-base"
               onClick={() =>
                 setCartItems((prevCart) =>
                   prevCart.filter((_, idx) => idx !== index)
@@ -83,8 +91,11 @@ const CartPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="flex justify-between items-center mt-6 border-t pt-4">
-        <h2 className="text-xl font-bold">Total Amount: PKR {totalAmount}</h2>
+      {/* Total Amount & Proceed Button */}
+      <div className="flex flex-col lg:flex-row justify-between items-center mt-8 border-t pt-4">
+        <h2 className="text-lg sm:text-xl font-bold mb-4 lg:mb-0 text-center lg:text-left">
+          Total Amount: PKR {totalAmount}
+        </h2>
         <button
           onClick={handleProceedToShipment}
           className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"

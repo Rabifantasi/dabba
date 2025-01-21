@@ -114,7 +114,7 @@ const ProductsPage: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center p-4">Loading...</div>;
   }
 
   function handleAddToCart(product: Product): void {
@@ -168,7 +168,7 @@ const ProductsPage: React.FC = () => {
         onFilterChange={handleFilterChange}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {filteredProducts.map((product) => (
           <Product
             key={product._id}

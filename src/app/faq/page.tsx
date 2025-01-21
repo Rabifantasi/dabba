@@ -37,13 +37,13 @@ const FAQs: React.FC = () => {
   ];
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions (FAQ)</h1>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Frequently Asked Questions (FAQ)</h1>
       <div className="space-y-4">
         {faqList.map((faq, index) => (
           <div key={index} className="border rounded-lg p-4 shadow-md">
-            <h2 className="text-xl font-semibold">{faq.question}</h2>
-            <p className="text-gray-700 mt-2">{faq.answer}</p>
+            <h2 className="text-lg sm:text-xl font-semibold">{faq.question}</h2>
+            <p className="text-gray-700 mt-2 text-sm sm:text-base">{faq.answer}</p>
           </div>
         ))}
       </div>
