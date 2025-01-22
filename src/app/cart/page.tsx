@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 // Define a type for the cart item
 interface CartItem {
+  _id: string;
   name: string;
   price: number;
   image: {
@@ -51,6 +53,12 @@ const CartPage: React.FC = () => {
     );
   }
 
+  const handleRemoveFromCart = (index: number) => {
+    const updatedCart = cartItems.filter((_, idx) => idx !== index);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
+  };
+
   return (
     <div className="p-4 sm:p-6 lg:p-8">
       <h1 className="text-2xl sm:text-3xl xl:text-4xl font-bold mb-6 text-center lg:text-left">
@@ -61,29 +69,23 @@ const CartPage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cartItems.map((item, index) => (
           <div
-            key={index}
-            className="flex flex-col sm:flex-row items-center justify-between border rounded-lg p-4 shadow-sm"
+            key={item._id}
+            className="flex items-center border p-4 rounded-lg shadow-md transition hover:shadow-lg"
           >
-            <div className="flex items-center">
-              <Image
-                src={item.image.asset.url}
-                alt={item.name}
-                className="w-20 h-20 sm:w-16 sm:h-16 object-cover rounded"
-                width={80}
-                height={80}
-              />
-              <div className="ml-4">
-                <h2 className="text-base sm:text-lg font-semibold">{item.name}</h2>
-                <p className="text-green-600 text-sm sm:text-base">PKR {item.price}</p>
-              </div>
+            <Image
+              src={item.image.asset.url}
+              alt={item.name}
+              className="w-16 h-16 object-cover rounded"
+              height={64}
+              width={64}
+            />
+            <div className="flex flex-col ml-4">
+              <h2 className="font-semibold text-gray-800">{item.name}</h2>
+              <p className="text-green-600 font-medium">PKR {item.price}</p>
             </div>
             <button
-              className="mt-4 sm:mt-0 text-red-600 hover:text-red-800 text-sm sm:text-base"
-              onClick={() =>
-                setCartItems((prevCart) =>
-                  prevCart.filter((_, idx) => idx !== index)
-                )
-              }
+              onClick={() => handleRemoveFromCart(index)}
+              className="ml-auto bg-red-500 text-white rounded px-4 py-2 hover:bg-red-600"
             >
               Remove
             </button>
@@ -91,18 +93,21 @@ const CartPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Total Amount & Proceed Button */}
-      <div className="flex flex-col lg:flex-row justify-between items-center mt-8 border-t pt-4">
-        <h2 className="text-lg sm:text-xl font-bold mb-4 lg:mb-0 text-center lg:text-left">
-          Total Amount: PKR {totalAmount}
-        </h2>
-        <button
-          onClick={handleProceedToShipment}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-        >
-          Proceed to Shipment
-        </button>
+      {/* Total Amount */}
+      <div className="mt-6 text-lg sm:text-xl font-bold text-right">
+        Total Amount: PKR {totalAmount}
       </div>
+
+      {/* Proceed to Shipment Button */}
+      <div className="mt-4 flex justify-center">
+  <Link href="/checkout">
+    <button
+      className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 transition"
+    >
+      Proceed to Shipment
+    </button>
+  </Link>
+</div>
     </div>
   );
 };

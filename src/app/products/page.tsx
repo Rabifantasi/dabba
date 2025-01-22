@@ -5,7 +5,7 @@ import Filters from "@/app/components/Filter"; // Adjust the path based on your 
 import Link from "next/link"; // Import Link from Next.js
 import Image from "next/image";
 
-// Define interfaces for product and cart item
+// Define interfaces for product
 interface Product {
   _id: string;
   name: string;
@@ -17,10 +17,6 @@ interface Product {
       url: string;
     };
   };
-}
-
-interface CartItem {
-  product: Product;
 }
 
 const query = `*[_type == "product"]{
@@ -51,9 +47,9 @@ const Product: React.FC<Product & { onAddToCart: () => void }> = ({
       <Image
         src={image.asset.url}
         alt={name}
-        className="w-full h-48 object-cover rounded-t-lg" // Adjusted height
-        height={192} // Adjusted height
-        width={320} // Adjusted width
+        className="w-full h-48 object-cover rounded-t-lg"
+        height={192}
+        width={320}
       />
       <div className="p-2">
         <h2 className="text-xl font-semibold text-gray-800 truncate">{name}</h2>
@@ -78,7 +74,6 @@ const Product: React.FC<Product & { onAddToCart: () => void }> = ({
         >
           Add to Cart
         </button>
-        {/* Link to product details page */}
         <Link href={`/products/${_id}`}>
           <span className="mt-2 block text-center text-blue-500 underline cursor-pointer">
             View Details
@@ -94,7 +89,6 @@ const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]);
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -103,7 +97,7 @@ const ProductsPage: React.FC = () => {
         const fetchedProducts: Product[] = await client.fetch(query);
         setProducts(fetchedProducts);
         setFilteredProducts(fetchedProducts); // Initially, display all products
-      } catch (_error) { // Renamed 'error' to '_error'
+      } catch (_error) {
         console.error("Error fetching products:", _error);
       } finally {
         setLoading(false);
@@ -118,7 +112,9 @@ const ProductsPage: React.FC = () => {
   }
 
   function handleAddToCart(product: Product): void {
-    setCart((prevCart) => [...prevCart, { product }]); // Add product to cart
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.push(product); // Add product to cart
+    localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
     setShowMessage(true); // Show message
     setTimeout(() => setShowMessage(false), 2000); // Hide message after 2 seconds
   }
@@ -159,7 +155,7 @@ const ProductsPage: React.FC = () => {
 
       {/* Cart Link with Item Count */}
       <Link href="/cart" className="mb-4 inline-block text-blue-600">
-        Cart ({cart.length} items)
+        Cart ({JSON.parse(localStorage.getItem("cart") || "[]").length} items)
       </Link>
 
       <Filters

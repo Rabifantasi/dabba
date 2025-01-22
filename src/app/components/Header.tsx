@@ -1,7 +1,8 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Import hamburger and close icons
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import Image from "next/image";
 
 interface NavigationLink {
   label: string;
@@ -16,7 +17,7 @@ interface HeaderData {
 const Header: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [headerData, setHeaderData] = useState<HeaderData | null>(null);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false); // State to manage the hamburger menu
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchHeaderData = async () => {
@@ -52,26 +53,24 @@ const Header: React.FC = () => {
   return (
     <header className="bg-red-600 text-white">
       {/* Top Header */}
-      <div className="py-2 bg-red-700">
+      <div className="py-1 bg-red-700">
         <div className="container mx-auto flex justify-center items-center">
-          <p className="text-sm">{headerData.promotionalMessage}</p>
+          <p className="text-xs">{headerData.promotionalMessage}</p>
         </div>
       </div>
       {/* Main Header */}
-      <div className="container mx-auto flex justify-between items-center py-4 flex-wrap">
-        <div className="flex items-center space-x-2">
-          <video
-            className="w-32 h-16 md:w-48 md:h-20 object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/Dabbe Me Dabba.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      <div className="container mx-auto flex justify-between items-center py-5 px-4 md:px-8">
+      {/* Logo and Site Title */}
+        <div className="flex items-center space-x-3">
+          <Image
+            src="/Capture.png" // Replace with your image path
+            alt="Dabbe Me Dabba"
+            width={80}
+            height={80}
+            className="rounded-full shadow-lg"
+          />
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold"
             style={{ fontFamily: "Dancing Script, cursive" }}
           >
             {headerData.siteTitle}
@@ -86,7 +85,11 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation Links and Search Bar */}
-        <div className={`flex flex-col md:flex-row md:items-center md:space-x-4 mr-4 ${menuOpen ? 'block' : 'hidden md:flex'}`}>
+        <div
+          className={`flex flex-col md:flex-row md:items-center md:space-x-4 ${
+            menuOpen ? "block" : "hidden md:flex"
+          }`}
+        >
           <nav className="flex flex-col md:flex-row md:space-x-4">
             <Link href="/" passHref>
               <button className="hover:underline">Home</button>
@@ -106,9 +109,9 @@ const Header: React.FC = () => {
               placeholder="Search..."
               value={searchTerm}
               onChange={handleInputChange}
-              className="p-2 rounded-l bg-white text-black"
+              className="p-1 rounded-l bg-white text-black"
             />
-            <button type="submit" className="p-2 bg-yellow-400 text-black rounded-r">
+            <button type="submit" className="p-1 bg-yellow-400 text-black rounded-r">
               Search
             </button>
           </form>
