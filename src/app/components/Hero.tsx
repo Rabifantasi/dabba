@@ -163,7 +163,7 @@ const Hero: React.FC = () => {
         </section>
 
         {/* Featured Gift Baskets Section */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-gray-100 text-center">
           <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">
             Featured Gift Baskets
           </h2>
@@ -249,7 +249,7 @@ const Hero: React.FC = () => {
         </section>
 
         {/* Event Highlights Section */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-gray-100 text-center">
           <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">
             Upcoming Events
           </h2>
