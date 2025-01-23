@@ -63,7 +63,7 @@ const Header: React.FC = () => {
       {/* Logo and Site Title */}
         <div className="flex items-center space-x-3">
           <Image
-            src="/Capture.png" // Replace with your image path
+            src="/Capture.PNG" // Replace with your image path
             alt="Dabbe Me Dabba"
             width={80}
             height={80}
