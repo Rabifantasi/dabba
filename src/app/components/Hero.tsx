@@ -104,7 +104,7 @@ const Hero: React.FC = () => {
     }
   }, [data]);
 
-  if (loading) return <div className="text-center">Loading...</div>; // Handle loading state
+  if (loading) return <div className="text-center"></div>; // Handle loading state
   if (error) return <div className="text-center text-red-500">{error}</div>; // Handle error state
   if (!data) return <div className="text-center">No data available</div>; // Handle no data available
 
