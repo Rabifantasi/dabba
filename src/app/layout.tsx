@@ -38,21 +38,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="fixed inset-0 bg-red-500 bg-opacity-80 flex items-center justify-center z-50">
             <div className="flex space-x-4">
               <Image
-                src="/gf3.png"
+                src="/gf3.PNG"
                 alt="gf1"
                 width={150}
                 height={150}
                 className="animate-dance"
               />
               <Image
-                src="/gb2.png"
+                src="/gb2.PNG"
                 alt="gf2"
                 width={150}
                 height={150}
                 className="animate-dance delay-150"
               />
               <Image
-                src="/gb1.png"
+                src="/gb1.PNG"
                 alt="Gift 3"
                 width={150}
                 height={150}
