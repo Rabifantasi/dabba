@@ -206,7 +206,7 @@ const Hero: React.FC = () => {
               {/* Testimonial 1 */}
               <div className="bg-white rounded-lg shadow-lg p-6 w-full md:w-1/3 text-center">
                 <p className="text-black text-lg italic">
-                  "The gift box was a huge hit at the party! Highly recommend!"
+                  The gift box was a huge hit at the party! Highly recommend!
                 </p>
                 <p className="text-black font-bold mt-4">- Sarah K.</p>
               </div>
@@ -214,7 +214,7 @@ const Hero: React.FC = () => {
               {/* Testimonial 2 */}
               <div className="bg-white rounded-lg shadow-lg p-6 w-full md:w-1/3 text-center">
                 <p className="text-black text-lg italic">
-                  "Beautifully presented and packed with care. A perfect gift!"
+                  Beautifully presented and packed with care. A perfect gift!
                 </p>
                 <p className="text-black font-bold mt-4">- John D.</p>
               </div>
